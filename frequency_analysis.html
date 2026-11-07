@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contoh Program Analisis Frekuensi</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Panel Kiri -->
+      <div class="left-panel">
+        <div class="msg-row">
+          Message:
+          <select id="selSample">
+            <option value="1">Sample 1 (Caesar, geser 7)</option>
+            <option value="2">Sample 2 (Substitusi acak)</option>
+            <option value="custom">Teks sendiri</option>
+          </select>
+          <button class="btn-ctrl" onclick="tulisSendiri()">Write your own</button>
+        </div>
+        <textarea id="txt-cipher"></textarea>
+
+        <button class="btn-finished" onclick="selesai()">Finished!</button>
+
+        <div class="section-title" style="margin-top: 5px">Decoded Message (Hasil):</div>
+        <textarea id="txt-plain" readonly></textarea>
+        <div id="status" class="status"></div>
+      </div>
+
+      <!-- Panel Kanan -->
+      <div class="right-panel">
+        <div class="section-title" style="font-size: 15px">Letter Frequencies</div>
+
+        <div class="canvas-container">
+          <canvas id="freqCanvas"></canvas>
+        </div>
+
+        <div class="control-panel">
+          <div class="tabs">
+            <button class="tab" id="tab-caesar" onclick="showTab('caesar')">Caesar Substitution</button>
+            <button class="tab active" id="tab-random" onclick="showTab('random')">Random Substitution</button>
+          </div>
+
+          <!-- Tab Caesar -->
+          <div class="panel" id="panel-caesar">
+            <div class="control-group">
+              <label>Sort originals</label>
+              <div class="btn-group">
+                <button class="btn-ctrl btn-orig" onclick="setSortOrig('A_TO_Z')">A to Z</button>
+                <button class="btn-ctrl btn-orig" onclick="setSortOrig('BY_PERCENT')">By %</button>
+              </div>
+            </div>
+            <div class="shift-row">
+              <div class="control-group">
+                <label for="shift">Geser (shift)</label>
+                <input type="number" id="shift" min="0" max="25" value="0" />
+              </div>
+              <span class="hint">Isi geser 0&ndash;25 lalu klik Assign (atau langsung ketik angkanya) sampai teks terbaca.</span>
+            </div>
+            <div class="push">
+              <button class="btn-ctrl" onclick="resetMap()">Reset</button>
+              <button class="btn-ctrl" onclick="assignCaesar()">Assign</button>
+            </div>
+          </div>
+
+          <!-- Tab Random -->
+          <div class="panel active" id="panel-random">
+            <div class="control-group">
+              <label>Sort originals</label>
+              <div class="btn-group">
+                <button class="btn-ctrl btn-orig" onclick="setSortOrig('A_TO_Z')">A to Z</button>
+                <button class="btn-ctrl btn-orig" onclick="setSortOrig('BY_PERCENT')">By %</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <label>Sort substitutions</label>
+              <div class="btn-group">
+                <button class="btn-ctrl" onclick="setSortSub('A_TO_Z')">A to Z</button>
+                <button class="btn-ctrl" onclick="setSortSub('BY_PERCENT')">By %</button>
+              </div>
+            </div>
+            <div class="push">
+              <button class="btn-ctrl" onclick="acakMap()">Random</button>
+              <button class="btn-ctrl" onclick="resetMap()">Reset</button>
+              <button class="btn-ctrl" onclick="otomatisAssign()">Assign</button>
+            </div>
+          </div>
+        </div>
+
+        <fieldset class="mapping-fieldset">
+          <legend>Manual Mapping</legend>
+          <div class="mapping-grid" id="mappingGrid"></div>
+        </fieldset>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
